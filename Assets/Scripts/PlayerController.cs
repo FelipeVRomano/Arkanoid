@@ -31,8 +31,8 @@ public class PlayerController : MonoBehaviour
    // public GameObject MaisBola;
     public int numberOfBalls = 1;
     public GameObject Bola;
-
-
+    public Transform[] ballMuzzle;
+    bool controleBolas;
 
     public void Start()
     {
@@ -69,7 +69,7 @@ public class PlayerController : MonoBehaviour
                 force.y = launchBallSpeed;
                 ball.transform.parent = null;
                 ball.AddForce(force);
-                ball = null;
+           //     ball = null;
                 carryingBall = false;
             }
             else if (shootFree)
@@ -106,10 +106,20 @@ public class PlayerController : MonoBehaviour
         {
             numberOfBalls = 3;
         }
-        if(numberOfBalls ==3)
+        if(numberOfBalls == 3 && !controleBolas)
         {
-           Rigidbody2D ball2 = Instantiate(ball, ball.position, Quaternion.identity);
-            //ball2.
+            // Rigidbody2D ball2 = Instantiate(ball, ball.position, Quaternion.identity);
+            GameObject.FindWithTag("GameController").GetComponent<GameController>().numberOfBalls += 2;
+            Rigidbody2D left = Instantiate(ball, leftMuzzle.position, Quaternion.identity) as Rigidbody2D;
+            Rigidbody2D right = Instantiate(ball, rightMuzzle.position, Quaternion.identity) as Rigidbody2D;
+            Vector2 forceExtra = Vector2.zero;
+            int um = 1;
+            forceExtra.x = um * launchBallSpeed / 1.5f;
+            forceExtra.y = launchBallSpeed / 1.5f;
+            left.AddForce(forceExtra);
+            forceExtra.x = um * launchBallSpeed * -1;
+            right.AddForce(forceExtra);
+            controleBolas = true;
         }
     }
 

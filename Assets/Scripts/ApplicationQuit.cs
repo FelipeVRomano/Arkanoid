@@ -1,0 +1,12 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class ApplicationQuit : MonoBehaviour
+{
+    // Start is called before the first frame update
+   public void SairJogo()
+    {
+        Application.Quit();
+    }
+}
